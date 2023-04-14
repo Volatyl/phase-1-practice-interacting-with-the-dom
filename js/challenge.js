@@ -23,37 +23,22 @@ window.addEventListener("DOMContentLoaded", () => {
   });
 
   //function to like the counter
-
+  const obj = {};
+  const ul = document.querySelector(".likes");
   heart.addEventListener("click", () => {
-    const ul = document.querySelector(".likes");
-    const snap = counter.textContent;
-    const likedNum = [...ul.children].map((a) => a.dataset.num);
-    if (likedNum.includes(snap)) {
-      console.log(likedNum);
+    let currentCount = counter.textContent;
+    if (Object.keys(obj).includes(currentCount)) {
+      obj[currentCount] += 1;
+      document.querySelector(`#count-${currentCount}`).textContent =
+        obj[currentCount];
     } else {
+      obj[currentCount] = 1;
+      const li = document.createElement("li");
+      let txt = `${currentCount} has been liked <span id='count-${currentCount}'>${obj[currentCount]}</span> times`;
+      li.innerHTML = txt;
+      ul.appendChild(li);
     }
-    const li = document.createElement("li");
-    li.textContent = counter.textContent;
-    ul.appendChild(li);
   });
-
-
- /*  heart.addEventListener("click", () => {
-   
-    let counterValue = counter.textContent;;
-    const likedItems = toArray(likesList.children).map(item => parseInt(item.dataset.num));
-    if (likedItems.includes(counterValue)) {
-      const likedItem = document.querySelector(`[data-num="${counterValue}"]`);
-      let likedCount = parseInt(likedItem.children[0].innerText);
-      likedItem.innerHTML = `${counterValue} has been liked <span>${likedCount + 1}</span> times`;
-    } else {
-      const newItem = document.createElement("li");
-      newItem.setAttribute("data-num", counterValue);
-      newItem.innerHTML = `${counterValue} has been liked <span>1</span> time`;
-      likesList.appendChild(newItem);
-    }
-  }); */
-
 
   //Function to add comment
   const commentDisplay = document.querySelector(".comments");
